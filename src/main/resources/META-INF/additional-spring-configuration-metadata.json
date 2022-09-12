@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "secret.key",
+  "type": "java.lang.String",
+  "description": "Key to crypte Password"
+}]}
