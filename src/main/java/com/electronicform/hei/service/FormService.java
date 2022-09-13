@@ -81,7 +81,7 @@ public class FormService {
         return form;
     }
 
-    public String deleteForm(Long id, UUID uuid) {
+    public String deleteFormById(Long id, UUID uuid) {
         Form form = formRepository.findById(uuid).orElseThrow(
                 () -> new IllegalStateException(
                         String.format("Error: Form with id %s don't exist in database ", uuid)));
@@ -90,11 +90,7 @@ public class FormService {
             throw new IllegalStateException("You don't have a permission to update this Form");
         }
 
-        try {
-            formRepository.deleteById(uuid);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        formRepository.delete(form);
 
         return "Delete success";
     }

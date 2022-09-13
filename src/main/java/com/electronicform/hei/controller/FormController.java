@@ -67,6 +67,6 @@ public class FormController {
             @RequestAttribute("id") Long id, // Only the user login can delete her Form
             @PathVariable("uuid") UUID uuid // Form Id
     ) {
-        return formService.deleteForm(id, uuid);
+        return formService.deleteFormById(id, uuid);
     }
 }

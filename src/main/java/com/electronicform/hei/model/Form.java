@@ -31,8 +31,10 @@ public class Form implements Serializable {
     private UUID id = UUID.randomUUID();
     @Column(columnDefinition = "varchar(150) default 'Formulaire sans titre'")
     private String title;
+    @Column(columnDefinition = "varchar(255) default 'Formulaire sans description'")
     private String description;
-    @ManyToOne(cascade = CascadeType.ALL)
+
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private AppUser appUser;
 
