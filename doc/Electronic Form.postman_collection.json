@@ -1,0 +1,639 @@
+{
+	"info": {
+		"_postman_id": "90c9f9a1-5352-4798-ae6d-bd963a7b39bc",
+		"name": "Electronic Form",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "AppUser",
+			"item": [
+				{
+					"name": "CreateUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\":\"franklin\",\n    \"email\":\"franklin@gmail.com\",\n    \"password\":\"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/user/create",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LoginUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\":\"franklin\",\n    \"password\":\"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/user/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "me",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/user/me",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Form",
+			"item": [
+				{
+					"name": "CreateNewForm",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"sonage etudiant hei\",\n  \"description\": \"qui est le plus fort\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/forms/create",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"forms",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getFormsById",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/forms/203329ba-a4cb-4071-98f5-ba600f07fa50",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"forms",
+								"203329ba-a4cb-4071-98f5-ba600f07fa50"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllFormsForUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/forms/user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"forms",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllForms",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/forms/all",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"forms",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateFormById",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"sonage etudiant hei par franklin\",\n  \"description\": \"qui est le plus fort des filles\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/forms/update/203329ba-a4cb-4071-98f5-ba600f07fa50",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"forms",
+								"update",
+								"203329ba-a4cb-4071-98f5-ba600f07fa50"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteFormById",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/delete/203329ba-a4cb-4071-98f5-ba600f07fa50",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"delete",
+								"203329ba-a4cb-4071-98f5-ba600f07fa50"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Question",
+			"item": [
+				{
+					"name": "CreateNewQuestion",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  {\n    \"question\": \"votre nom Mr\",\n    \"type\": \"PARAGRAPH\",\n    \"formUuid\": \"203329ba-a4cb-4071-98f5-ba600f07fa50\"\n  },\n  {\n    \"question\": \"votre prenom aussi\",\n    \"type\": \"PARAGRAPH\",\n    \"formUuid\": \"203329ba-a4cb-4071-98f5-ba600f07fa50\"\n  },\n  {\n    \"question\": \"male ou femelle\",\n    \"type\": \"MULTIPLE_CHOICE\",\n    \"choise\": [\n      \"Male\",\n      \"Femelle\"\n    ],\n    \"formUuid\": \"203329ba-a4cb-4071-98f5-ba600f07fa50\"\n  }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/questions/create",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"questions",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllQuestions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/questions/all",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"questions",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getQuestionById",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/questions/get/cdcad624-0c69-42bb-a997-f0c760822cdf",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"questions",
+								"get",
+								"cdcad624-0c69-42bb-a997-f0c760822cdf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllQuestionsForFormById",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/questions/form/203329ba-a4cb-4071-98f5-ba600f07fa50",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"questions",
+								"form",
+								"203329ba-a4cb-4071-98f5-ba600f07fa50"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateQuestionById",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"question\": \"combien font 2+2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/questions/update/cdcad624-0c69-42bb-a997-f0c760822cdf",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"questions",
+								"update",
+								"cdcad624-0c69-42bb-a997-f0c760822cdf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteQuestionById",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/delete/6490df40-070c-4760-adfa-592032848a21",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"delete",
+								"6490df40-070c-4760-adfa-592032848a21"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Answer",
+			"item": [
+				{
+					"name": "sendNewAnswer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  {\n    \"reply\": \"Franklin\",\n    \"question\": \"6490df40-070c-4760-adfa-592032848a21\"\n  }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/answers/create",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"answers",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAnswerForQuestionById",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/answers/question/6490df40-070c-4760-adfa-592032848a21",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"answers",
+								"question",
+								"6490df40-070c-4760-adfa-592032848a21"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllAnswer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/answers/all",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"answers",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllAnswerByForm",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/answers/form/203329ba-a4cb-4071-98f5-ba600f07fa50",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"answers",
+								"form",
+								"203329ba-a4cb-4071-98f5-ba600f07fa50"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAnswerById",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/answers/get/b85daf60-2e76-4e13-8893-cbcb2a78d651",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"answers",
+								"get",
+								"b85daf60-2e76-4e13-8893-cbcb2a78d651"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
