@@ -3,7 +3,7 @@ package com.electronicform.hei.model.mapper;
 import org.springframework.stereotype.Component;
 
 import com.electronicform.hei.model.Form;
-import com.electronicform.hei.model.dto.FormDto.FindFormForUserDto;
+import com.electronicform.hei.model.dto.formDto.FindFormForUserDto;
 
 @Component
 public class FindFormForUserMapper {

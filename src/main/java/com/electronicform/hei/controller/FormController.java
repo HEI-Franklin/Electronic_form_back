@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.electronicform.hei.model.dto.FormDto.CreateFormDto;
-import com.electronicform.hei.model.dto.FormDto.FindFormForUserDto;
+import com.electronicform.hei.model.dto.formDto.CreateFormDto;
+import com.electronicform.hei.model.dto.formDto.FindFormForUserDto;
 import com.electronicform.hei.model.mapper.FindFormForUserMapper;
 import com.electronicform.hei.service.FormService;
 

@@ -3,7 +3,7 @@ package com.electronicform.hei.model.mapper;
 import org.springframework.stereotype.Component;
 
 import com.electronicform.hei.model.AppUser;
-import com.electronicform.hei.model.dto.AppUserDto.MeDto;
+import com.electronicform.hei.model.dto.appUserDto.MeDto;
 
 @Component
 public class MeMapper {

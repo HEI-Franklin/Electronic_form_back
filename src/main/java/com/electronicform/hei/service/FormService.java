@@ -10,7 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.electronicform.hei.model.Form;
 import com.electronicform.hei.model.Question;
-import com.electronicform.hei.model.dto.FormDto.CreateFormDto;
+import com.electronicform.hei.model.dto.formDto.CreateFormDto;
 import com.electronicform.hei.repository.FormRepository;
 import com.electronicform.hei.repository.QuestionRepository;
 
@@ -96,15 +96,19 @@ public class FormService {
             throw new IllegalStateException("You don't have a permission to update this Form");
         }
 
+        deleteAllQuestionForForm(uuid);
+
+        formRepository.deleteById(uuid);
+
+        return "Delete success";
+    }
+
+    private void deleteAllQuestionForForm(String uuid) {
         List<Question> questions = questionRepository.findAllQuestionByFormId(uuid);
 
         for (int i = 0; i < questions.size(); i++) {
             questionRepository.delete(questions.get(i));
         }
-
-        formRepository.deleteById(uuid);
-
-        return "Delete success";
     }
 
 }

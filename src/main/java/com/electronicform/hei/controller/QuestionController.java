@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.electronicform.hei.model.Question;
-import com.electronicform.hei.model.dto.QuestionDto.CreateQuestionDto;
-import com.electronicform.hei.model.dto.QuestionDto.UpdateQuestionDto;
+import com.electronicform.hei.model.dto.questionDto.CreateQuestionDto;
+import com.electronicform.hei.model.dto.questionDto.FindAllQuestionDto;
+import com.electronicform.hei.model.dto.questionDto.UpdateQuestionDto;
+import com.electronicform.hei.model.mapper.FindAllQuestionMapper;
 import com.electronicform.hei.service.QuestionService;
 
 import lombok.AllArgsConstructor;
@@ -25,20 +26,23 @@ import lombok.AllArgsConstructor;
 public class QuestionController {
 
     private final QuestionService questionService;
+    private final FindAllQuestionMapper findAllQuestionMapper;
 
     @GetMapping("/all") // get list of all Question
-    public List<Question> getAllQuestion() throws ResponseStatusException {
-        return questionService.getAllQuestion();
+    public List<FindAllQuestionDto> getAllQuestion() throws ResponseStatusException {
+        return questionService.getAllQuestion().stream().map(findAllQuestionMapper::findAllQuestionDto).toList();
     }
 
     @GetMapping("/get/{uuid}") // get question from id
-    public Question getQuestionById(@PathVariable("uuid") String uuid) throws ResponseStatusException {
-        return questionService.getQuestionById(uuid);
+    public FindAllQuestionDto getQuestionById(@PathVariable("uuid") String uuid) throws ResponseStatusException {
+        return findAllQuestionMapper.findAllQuestionDto(questionService.getQuestionById(uuid));
     }
 
     @GetMapping("/form/{uuid}") // get all Question for the Form parent
-    public List<Question> getQuestionFromFormId(@PathVariable("uuid") String uuid) throws ResponseStatusException {
-        return questionService.getQuestionByFormId(uuid);
+    public List<FindAllQuestionDto> getQuestionFromFormId(@PathVariable("uuid") String uuid)
+            throws ResponseStatusException {
+        return questionService.getQuestionByFormId(uuid).stream().map(findAllQuestionMapper::findAllQuestionDto)
+                .toList();
     }
 
     @PostMapping("/create") // Create Question for the connected user
@@ -49,10 +53,10 @@ public class QuestionController {
 
     // update Question with id
     @PutMapping("/update/{uuid}")
-    public Question updateQuestionById(
+    public FindAllQuestionDto updateQuestionById(
             @PathVariable("uuid") String uuid,
             @RequestBody() UpdateQuestionDto updateQuestionDto) throws ResponseStatusException {// Question Id
-        return questionService.updateQuestionById(uuid, updateQuestionDto);
+        return findAllQuestionMapper.findAllQuestionDto(questionService.updateQuestionById(uuid, updateQuestionDto));
     }
 
     @DeleteMapping("/delete/{uuid}")

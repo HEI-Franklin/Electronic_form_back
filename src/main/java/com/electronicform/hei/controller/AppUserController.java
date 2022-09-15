@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.electronicform.hei.model.AppUser;
-import com.electronicform.hei.model.dto.AppUserDto.LoginAppUserDto;
-import com.electronicform.hei.model.dto.AppUserDto.MeDto;
-import com.electronicform.hei.model.dto.AppUserDto.TokenDto;
+import com.electronicform.hei.model.dto.appUserDto.LoginAppUserDto;
+import com.electronicform.hei.model.dto.appUserDto.MeDto;
+import com.electronicform.hei.model.dto.appUserDto.TokenDto;
 import com.electronicform.hei.model.mapper.MeMapper;
 import com.electronicform.hei.service.AppUserService;
 

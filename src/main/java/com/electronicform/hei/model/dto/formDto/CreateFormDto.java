@@ -1,4 +1,4 @@
-package com.electronicform.hei.model.dto.FormDto;
+package com.electronicform.hei.model.dto.formDto;
 
 import lombok.Data;
 

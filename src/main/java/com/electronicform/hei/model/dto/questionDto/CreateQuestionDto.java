@@ -1,4 +1,4 @@
-package com.electronicform.hei.model.dto.QuestionDto;
+package com.electronicform.hei.model.dto.questionDto;
 
 import com.electronicform.hei.model.questionType.QuestionType;
 

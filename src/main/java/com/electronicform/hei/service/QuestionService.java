@@ -10,8 +10,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.electronicform.hei.model.Form;
 import com.electronicform.hei.model.Question;
-import com.electronicform.hei.model.dto.QuestionDto.CreateQuestionDto;
-import com.electronicform.hei.model.dto.QuestionDto.UpdateQuestionDto;
+import com.electronicform.hei.model.dto.questionDto.CreateQuestionDto;
+import com.electronicform.hei.model.dto.questionDto.UpdateQuestionDto;
 import com.electronicform.hei.model.questionType.QuestionType;
 import com.electronicform.hei.repository.FormRepository;
 import com.electronicform.hei.repository.QuestionRepository;
