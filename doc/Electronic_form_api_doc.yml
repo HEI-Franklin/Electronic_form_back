@@ -1,0 +1,917 @@
+openapi: 3.0.1
+info:
+  title: Electronic form API
+  description: 'ELECTRONIC FORM is a tool for creating online surveys. Create your form easily and share it with everyone to receive your answers'
+  version: '1.0'
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+paths:
+  /questions/update/{uuid}:
+    put:
+      tags:
+        - question-controller
+      summary: Update question by id
+      operationId: updateQuestionById
+      parameters:
+        - name: uuid
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateQuestionDto'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FindAllQuestionDto'
+                '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - api: []
+  /forms/update/{uuid}:
+    put:
+      tags:
+        - form-controller
+      summary: Update form by id
+      operationId: updateFormById
+      parameters:
+        - name: uuid
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFormDto'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FindFormForUserDto'
+              '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - api: []
+  /user/login:
+    post:
+      tags:
+        - app-user-controller
+      summary: login user with username and password
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginAppUserDto'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TokenDto'
+                '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /user/create:
+    post:
+      tags:
+        - app-user-controller
+      summary: Create new user
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppUser'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CreateAppUserDto'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /questions/create:
+    post:
+      tags:
+        - question-controller
+      operationId: createQuestion
+      summary: Create new question (add new question in form)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateQuestionDto'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - api: []
+  /forms/create:
+    post:
+      tags:
+        - form-controller
+      summary: create new form
+      operationId: createForm
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFormDto'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FindFormForUserDto'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - api: []
+  /answers/create:
+    post:
+      tags:
+        - answer-controller
+      summary: send new answer for question
+      operationId: createAnswer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateAnswerDto'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - api: []
+  /:
+    get:
+      tags:
+        - app-user-controller
+      summary: Welcome page
+      operationId: hello
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /user/me:
+    get:
+      tags:
+        - app-user-controller
+      summary: to get your login identity
+      operationId: me
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MeDto'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - api: []
+  /questions/get/{uuid}:
+    get:
+      tags:
+        - question-controller
+      summary: get question by id
+      operationId: getQuestionById
+      parameters:
+        - name: uuid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FindAllQuestionDto'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - api: []
+  /questions/form/{uuid}:
+    get:
+      tags:
+        - question-controller
+      summary: get all question for form by id
+      operationId: getQuestionFromFormId
+      parameters:
+        - name: uuid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FindAllQuestionDto'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - api: []
+  /questions/all:
+    get:
+      tags:
+        - question-controller
+      summary: get list of all question
+      operationId: getAllQuestion
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FindAllQuestionDto'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - api: []
+  /forms/{uuid}:
+    get:
+      tags:
+        - form-controller
+      summary: get form by id
+      operationId: getFormById
+      parameters:
+        - name: uuid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FindFormForUserDto'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - api: []
+  /forms/user:
+    get:
+      tags:
+        - form-controller
+      summary: get all form for the connected user
+      operationId: getFormByUserId
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FindFormForUserDto'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - api: []
+  /forms/all:
+    get:
+      tags:
+        - form-controller
+      summary: get all user form
+      operationId: getAllForm
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FindFormForUserDto'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - api: []
+  /answers/quetion/{uuid}:
+    get:
+      tags:
+        - answer-controller
+      summary: get answer fro the question id
+      operationId: getQuestionAnswerById
+      parameters:
+        - name: uuid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FindAllAnswerDto'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - api: []
+  /answers/get/{uuid}:
+    get:
+      tags:
+        - answer-controller
+      summary: get answer by id
+      operationId: getAnswerById
+      parameters:
+        - name: uuid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FindAllAnswerDto'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - api: []
+  /answers/form/{uuid}:
+    get:
+      tags:
+        - answer-controller
+      summary: get all answer for the form by id 'from_id'
+      operationId: getAnswerByFormId
+      parameters:
+        - name: uuid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FindAllAnswerDto'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - api: []
+  /answers/all:
+    get:
+      tags:
+        - answer-controller
+      summary: get all user answer
+      operationId: getAllQuestion_1
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FindAllAnswerDto'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - api: []
+  /questions/delete/{uuid}:
+    delete:
+      tags:
+        - question-controller
+      summary: delete question by id
+      operationId: deleteQuestionById
+      parameters:
+        - name: uuid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - api: []
+  /forms/delete/{uuid}:
+    delete:
+      tags:
+        - form-controller
+      summary: delete form by id
+      operationId: deleteFormById
+      parameters:
+        - name: uuid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - api: []
+components:
+  schemas:
+    UpdateQuestionDto:
+      type: object
+      properties:
+        question:
+          type: string
+        type:
+          type: string
+          enum:
+            - PARAGRAPH
+            - CHECKBOXES
+            - MULTIPLE_CHOICE
+        choise:
+          type: array
+          items:
+            type: string
+    FindAllQuestionDto:
+      type: object
+      properties:
+        id:
+          type: string
+        question:
+          type: string
+        type:
+          type: string
+          enum:
+            - PARAGRAPH
+            - CHECKBOXES
+            - MULTIPLE_CHOICE
+        choise:
+          type: array
+          items:
+            type: string
+        formuuid:
+          type: string
+        answerNumber:
+          type: integer
+          format: int32
+    CreateFormDto:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+    FindFormForUserDto:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        username:
+          type: string
+    LoginAppUserDto:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    TokenDto:
+      type: object
+      properties:
+        token:
+          type: string
+    Answer:
+      type: object
+      properties:
+        id:
+          type: string
+        reply:
+          type: string
+        selected:
+          type: array
+          items:
+            type: string
+        question:
+          $ref: '#/components/schemas/Question'
+        appUser:
+          $ref: '#/components/schemas/AppUser'
+    AppUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        form:
+          type: array
+          items:
+            $ref: '#/components/schemas/Form'
+        answer:
+          type: array
+          items:
+            $ref: '#/components/schemas/Answer'
+    Form:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        appUser:
+          $ref: '#/components/schemas/AppUser'
+        question:
+          type: array
+          items:
+            $ref: '#/components/schemas/Question'
+    Question:
+      type: object
+      properties:
+        id:
+          type: string
+        question:
+          type: string
+        type:
+          type: string
+          enum:
+            - PARAGRAPH
+            - CHECKBOXES
+            - MULTIPLE_CHOICE
+        choise:
+          type: array
+          items:
+            type: string
+        form:
+          $ref: '#/components/schemas/Form'
+    CreateAppUserDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        email:
+          type: string
+    CreateQuestionDto:
+      type: object
+      properties:
+        question:
+          type: string
+        type:
+          type: string
+          enum:
+            - PARAGRAPH
+            - CHECKBOXES
+            - MULTIPLE_CHOICE
+        choise:
+          type: array
+          items:
+            type: string
+        formUuid:
+          type: string
+    CreateAnswerDto:
+      type: object
+      properties:
+        reply:
+          type: string
+        selected:
+          type: array
+          items:
+            type: string
+        question:
+          type: string
+        appUser:
+          type: string
+    MeDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        email:
+          type: string
+    FindAllAnswerDto:
+      type: object
+      properties:
+        id:
+          type: string
+        reply:
+          type: string
+        selected:
+          type: array
+          items:
+            type: string
+        question:
+          type: string
+        appUser:
+          type: string
+
+    Exception:
+      type: object
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+    BadRequestException:
+      allOf:
+        - $ref: '#/components/schemas/Exception'
+      example:
+        type: BadRequestException
+        message: Bad request
+    NotAuthorizedException:
+      allOf:
+        - $ref: '#/components/schemas/Exception'
+      example:
+        type: NotAuthorizedException
+        message: Not authorized
+    ResourceNotFoundException:
+      allOf:
+        - $ref: '#/components/schemas/Exception'
+      example:
+        type: ResourceNotFoundException
+        message: Resource not found
+    TooManyRequestsException:
+      allOf:
+        - $ref: '#/components/schemas/Exception'
+      example:
+        type: TooManyRequestsException
+        message: Too many requests
+    InternalServerException:
+      allOf:
+        - $ref: '#/components/schemas/Exception'
+      example:
+        type: InternalServerException
+        message: Unexpected error
+    
+  responses:
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BadRequestException'
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NotAuthorizedException'
+    '404':
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ResourceNotFoundException'
+    '429':
+      description: Too many requests to the API
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TooManyRequestsException'
+    '500':
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InternalServerException'
+
+  securitySchemes:
+    api:
+      type: http
+      scheme: bearer
+
