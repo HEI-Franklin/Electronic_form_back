@@ -1,5 +1,7 @@
 # ELECTRONIC FORM BACK
 
+<img src="https://github.com/HEI-Franklin/Electronic_form_back/raw/master/doc/logo.png" which="100px" height="100px">
+
 **ELECTRONIC FORM** is a tool for creating online surveys.
 Create your form easily and share it with everyone to receive your answers.
 
