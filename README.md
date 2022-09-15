@@ -28,7 +28,7 @@ Here is the schema model of the database
 - Here is the API documentation link
   available on SwaggerHub
 
-  <a href="" target="_blank">click here to open it in a new tab</a>
+  <a href="https://petstore.swagger.io/?url=https://raw.githubusercontent.com/HEI-Franklin/Electronic_form_back/master/doc/Electronic_form_api_doc.yml" target="_blank">click here to open it in a new tab</a>
 
 ## Requests
 
