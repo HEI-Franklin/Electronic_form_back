@@ -15,7 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.electronicform.hei.model.dto.questionDto.CreateQuestionDto;
 import com.electronicform.hei.model.dto.questionDto.FindAllQuestionDto;
 import com.electronicform.hei.model.dto.questionDto.UpdateQuestionDto;
-import com.electronicform.hei.model.mapper.FindAllQuestionMapper;
+import com.electronicform.hei.model.mapper.questionMapper.FindAllQuestionMapper;
 import com.electronicform.hei.service.QuestionService;
 
 import lombok.AllArgsConstructor;

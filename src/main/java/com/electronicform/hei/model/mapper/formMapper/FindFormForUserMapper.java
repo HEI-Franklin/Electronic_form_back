@@ -1,4 +1,4 @@
-package com.electronicform.hei.model.mapper;
+package com.electronicform.hei.model.mapper.formMapper;
 
 import org.springframework.stereotype.Component;
 

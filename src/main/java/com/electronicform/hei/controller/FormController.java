@@ -15,7 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.electronicform.hei.model.dto.formDto.CreateFormDto;
 import com.electronicform.hei.model.dto.formDto.FindFormForUserDto;
-import com.electronicform.hei.model.mapper.FindFormForUserMapper;
+import com.electronicform.hei.model.mapper.formMapper.FindFormForUserMapper;
 import com.electronicform.hei.service.FormService;
 
 import lombok.AllArgsConstructor;

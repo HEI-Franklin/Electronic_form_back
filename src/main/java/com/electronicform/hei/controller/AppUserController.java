@@ -3,7 +3,6 @@ package com.electronicform.hei.controller;
 import java.util.HashMap;
 
 import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
@@ -12,10 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.electronicform.hei.model.AppUser;
+import com.electronicform.hei.model.dto.appUserDto.CreateAppUserDto;
 import com.electronicform.hei.model.dto.appUserDto.LoginAppUserDto;
 import com.electronicform.hei.model.dto.appUserDto.MeDto;
 import com.electronicform.hei.model.dto.appUserDto.TokenDto;
-import com.electronicform.hei.model.mapper.MeMapper;
+import com.electronicform.hei.model.mapper.appUserMapper.CreateAppUserMapper;
+import com.electronicform.hei.model.mapper.appUserMapper.MeMapper;
 import com.electronicform.hei.service.AppUserService;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -34,6 +35,7 @@ public class AppUserController {
 
     private final AppUserService appUserService;
     private final MeMapper meMapper;
+    private final CreateAppUserMapper createAppUserMapper;
 
     @GetMapping()
     public String hello() {
@@ -42,8 +44,8 @@ public class AppUserController {
 
     // Endpoint to create User
     @PostMapping("/user/create")
-    public ResponseEntity<AppUser> createUser(@RequestBody() AppUser user) throws ResponseStatusException {
-        return appUserService.createUser(user);
+    public CreateAppUserDto createUser(@RequestBody() AppUser user) throws ResponseStatusException {
+        return createAppUserMapper.createAppUserDto(appUserService.createUser(user));
     }
 
     // Endpoint to login

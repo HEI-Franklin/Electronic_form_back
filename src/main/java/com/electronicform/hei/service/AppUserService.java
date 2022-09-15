@@ -1,7 +1,6 @@
 package com.electronicform.hei.service;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -21,13 +20,13 @@ public class AppUserService {
     private final AppUserRepository appUserRepository;
 
     // Function to Create new User
-    public ResponseEntity<AppUser> createUser(AppUser appUser) throws ResponseStatusException {
+    public AppUser createUser(AppUser appUser) throws ResponseStatusException {
         AppUser _user = new AppUser(appUser.getUsername(), appUser.getEmail(),
                 this.encoder.encode(appUser.getPassword()));
         boolean find = appUserRepository.existsByEmail(appUser.getEmail());
         if (!find) {
             appUserRepository.save(_user);
-            return ResponseEntity.ok(_user);
+            return _user;
         }
         throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email Already taken");
     }
