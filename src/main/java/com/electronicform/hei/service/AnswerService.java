@@ -66,7 +66,7 @@ public class AnswerService {
                 answer.setAppUser(appUser);
                 answer.setQuestion(question);
 
-                if (createAnswerDto[i].getSelected().length > 0) {
+                if (createAnswerDto[i].getSelected() != null) {
                     answer.setSelected(createAnswerDto[i].getSelected());
                 }
 

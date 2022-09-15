@@ -7,5 +7,4 @@ public class CreateAnswerDto {
     private String reply;
     private String[] selected;
     private String question;
-    private String appUser;
 }
