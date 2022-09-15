@@ -1,6 +1,7 @@
 package com.electronicform.hei.model;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
@@ -9,8 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.electronicform.hei.model.questionType.QuestionType;
 
@@ -32,27 +33,29 @@ public class Question implements Serializable {
 
     @Id
     @Column(name = "id", nullable = false)
-    private UUID id = UUID.randomUUID();
+    private String id = UUID.randomUUID().toString();
     @Column(nullable = false)
     private String question;
     @Enumerated(EnumType.STRING)
     private QuestionType type;
     private String[] choise;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "form_id", referencedColumnName = "id")
-    private Form from;
+    @ManyToOne
+    private Form form;
 
-    public Question(String question, QuestionType type, Form from) {
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Answer> answer;
+
+    public Question(String question, QuestionType type, Form form) {
         this.question = question;
         this.type = type;
-        this.from = from;
+        this.form = form;
     }
 
-    public Question(String question, QuestionType type, String[] choise, Form from) {
+    public Question(String question, QuestionType type, String[] choise, Form form) {
         this.question = question;
         this.type = type;
         this.choise = choise;
-        this.from = from;
+        this.form = form;
     }
 }

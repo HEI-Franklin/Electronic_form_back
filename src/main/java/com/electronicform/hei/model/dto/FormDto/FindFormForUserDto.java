@@ -1,6 +1,4 @@
-package com.electronicform.hei.model.dto;
-
-import java.util.UUID;
+package com.electronicform.hei.model.dto.FormDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FindFormForUserDto {
-    private UUID id;
+    private String id;
     private String title;
     private String description;
     private String username;

@@ -1,15 +1,18 @@
 package com.electronicform.hei.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import javax.transaction.Transactional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.electronicform.hei.model.Form;
-import com.electronicform.hei.model.dto.CreateFormDto;
+import com.electronicform.hei.model.Question;
+import com.electronicform.hei.model.dto.FormDto.CreateFormDto;
 import com.electronicform.hei.repository.FormRepository;
+import com.electronicform.hei.repository.QuestionRepository;
 
 import lombok.AllArgsConstructor;
 
@@ -19,6 +22,7 @@ public class FormService {
 
     private final FormRepository formRepository;
     private final AppUserService appUserService;
+    private final QuestionRepository questionRepository;
 
     // get all form
     public List<Form> getAllForm() {
@@ -26,15 +30,15 @@ public class FormService {
     }
 
     // get form from id
-    public Form getFormFromId(UUID uuid) {
+    public Form getFormById(String uuid) {
         Form form = formRepository.findById(uuid).orElseThrow(
-                () -> new IllegalStateException(
-                        String.format("Error: Form with id %s don't exist in database ", uuid)));
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        String.format("Error: Form with id %s not found in database ", uuid)));
         return form;
     }
 
     // get all Form for the connected user
-    public List<Form> getFormFromUserId(Long id) {
+    public List<Form> getFormByUserId(Long id) {
         return formRepository.findAllFormByUserId(id);
     }
 
@@ -46,14 +50,14 @@ public class FormService {
             form.setDescription(createFormDto.getDescription());
             form.setAppUser(appUserService.findOne(id));
             formRepository.save(form);
-        } catch (IllegalStateException e) {
-            System.out.println(e.getMessage());
+        } catch (ResponseStatusException e) {
+            new ResponseStatusException(HttpStatus.BAD_REQUEST, "Error: Can't create form");
         }
         return form;
     }
 
     @Transactional
-    public Form updateForm(Long id, UUID uuid, CreateFormDto createFormDto) {
+    public Form updateFormById(Long id, String uuid, CreateFormDto createFormDto) {
         Form form = formRepository.findById(uuid).orElseThrow(
                 () -> new IllegalStateException(
                         String.format("Error: Form with id %s don't exist in database ", uuid)));
@@ -74,23 +78,31 @@ public class FormService {
 
         try {
             formRepository.save(form);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (ResponseStatusException e) {
+            new ResponseStatusException(HttpStatus.BAD_REQUEST, "Error: Can't update form");
         }
 
         return form;
     }
 
-    public String deleteFormById(Long id, UUID uuid) {
-        Form form = formRepository.findById(uuid).orElseThrow(
-                () -> new IllegalStateException(
-                        String.format("Error: Form with id %s don't exist in database ", uuid)));
+    public String deleteFormById(Long id, String uuid) {
+        boolean existe = formRepository.existsById(uuid);
+        if (!existe) {
+            throw new IllegalStateException(
+                    String.format("Error: Form with id %s don't exist in database ", uuid));
+        }
 
-        if (form.getAppUser().getId() != id) {
+        if (formRepository.findById(uuid).get().getAppUser().getId() != id) {
             throw new IllegalStateException("You don't have a permission to update this Form");
         }
 
-        formRepository.delete(form);
+        List<Question> questions = questionRepository.findAllQuestionByFormId(uuid);
+
+        for (int i = 0; i < questions.size(); i++) {
+            questionRepository.delete(questions.get(i));
+        }
+
+        formRepository.deleteById(uuid);
 
         return "Delete success";
     }

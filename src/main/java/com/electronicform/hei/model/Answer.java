@@ -3,12 +3,10 @@ package com.electronicform.hei.model;
 import java.io.Serializable;
 import java.util.UUID;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -28,22 +26,26 @@ public class Answer implements Serializable {
 
     @Id
     @Column(name = "id", nullable = false)
-    private UUID id = UUID.randomUUID();
+    private String id = UUID.randomUUID().toString();
     private String reply;
     private String[] selected;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "question_id", referencedColumnName = "id")
+    @ManyToOne
     private Question question;
 
-    public Answer(String reply, Question question) {
+    @ManyToOne
+    private AppUser appUser;
+
+    public Answer(String reply, Question question, AppUser appUser) {
         this.reply = reply;
         this.question = question;
+        this.appUser = appUser;
     }
 
-    public Answer(String[] selected, Question question) {
+    public Answer(String[] selected, Question question, AppUser appUser) {
         this.selected = selected;
         this.question = question;
+        this.appUser = appUser;
     }
 
 }

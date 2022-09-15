@@ -1,7 +1,6 @@
 package com.electronicform.hei.controller;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.electronicform.hei.model.dto.CreateFormDto;
-import com.electronicform.hei.model.dto.FindFormForUserDto;
+import com.electronicform.hei.model.dto.FormDto.CreateFormDto;
+import com.electronicform.hei.model.dto.FormDto.FindFormForUserDto;
 import com.electronicform.hei.model.mapper.FindFormForUserMapper;
 import com.electronicform.hei.service.FormService;
 
@@ -30,19 +29,19 @@ public class FormController {
     private final FindFormForUserMapper findFormForUserMapper;
 
     @GetMapping("/all") // get list of all forms
-    public List<FindFormForUserDto> getAllForm() {
+    public List<FindFormForUserDto> getAllForm() throws ResponseStatusException {
         return formService.getAllForm().stream().map(
                 findFormForUserMapper::findFormForUserDto).toList();
     }
 
-    @GetMapping("/{uuid}") // get from from id
-    public FindFormForUserDto getFormFromId(@PathVariable("uuid") UUID uuid) {
-        return findFormForUserMapper.findFormForUserDto(formService.getFormFromId(uuid));
+    @GetMapping("/{uuid}") // get from by id
+    public FindFormForUserDto getFormById(@PathVariable("uuid") String uuid) throws ResponseStatusException {
+        return findFormForUserMapper.findFormForUserDto(formService.getFormById(uuid));
     }
 
     @GetMapping("/user") // get all forms for the connected user
-    public List<FindFormForUserDto> getFormFromUserId(@RequestAttribute("id") Long id) {
-        return formService.getFormFromUserId(id).stream().map(
+    public List<FindFormForUserDto> getFormByUserId(@RequestAttribute("id") Long id) throws ResponseStatusException {
+        return formService.getFormByUserId(id).stream().map(
                 findFormForUserMapper::findFormForUserDto).toList();
     }
 
@@ -55,18 +54,19 @@ public class FormController {
 
     // update form with id
     @PutMapping("/update/{uuid}")
-    public FindFormForUserDto updateForm(
+    public FindFormForUserDto updateFormById(
             @RequestAttribute("id") Long id, // Only the user login can update her Form
-            @PathVariable("uuid") UUID uuid, // Form Id
-            @RequestBody() CreateFormDto createFormDto) {
-        return findFormForUserMapper.findFormForUserDto(formService.updateForm(id, uuid, createFormDto));
+            @PathVariable("uuid") String uuid, // Form Id
+            @RequestBody() CreateFormDto createFormDto) throws ResponseStatusException {
+        return findFormForUserMapper.findFormForUserDto(formService.updateFormById(id, uuid, createFormDto));
     }
 
+    // Delete form from Id
     @DeleteMapping("/delete/{uuid}")
-    public String deleteForm(
+    public String deleteFormById(
             @RequestAttribute("id") Long id, // Only the user login can delete her Form
-            @PathVariable("uuid") UUID uuid // Form Id
-    ) {
+            @PathVariable("uuid") String uuid // Form Id
+    ) throws ResponseStatusException {
         return formService.deleteFormById(id, uuid);
     }
 }

@@ -12,16 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.electronicform.hei.model.AppUser;
-import com.electronicform.hei.model.dto.LoginAppUserDto;
-import com.electronicform.hei.model.dto.MeDto;
-import com.electronicform.hei.model.dto.TokenDto;
+import com.electronicform.hei.model.dto.AppUserDto.LoginAppUserDto;
+import com.electronicform.hei.model.dto.AppUserDto.MeDto;
+import com.electronicform.hei.model.dto.AppUserDto.TokenDto;
 import com.electronicform.hei.model.mapper.MeMapper;
 import com.electronicform.hei.service.AppUserService;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
-
-
 
 @RestController
 @AllArgsConstructor
@@ -33,32 +31,32 @@ public class AppUserController {
         AUTHORIZED_ROUTE.put("/user/login", HttpMethod.POST);
         AUTHORIZED_ROUTE.put("/", HttpMethod.GET);
     }
-    
+
     private final AppUserService appUserService;
     private final MeMapper meMapper;
 
     @GetMapping()
-    public String hello(){
+    public String hello() {
         return "<h1>Welcome to Electronic Form API</h1>";
     }
 
-    //Endpoint to create User
+    // Endpoint to create User
     @PostMapping("/user/create")
     public ResponseEntity<AppUser> createUser(@RequestBody() AppUser user) throws ResponseStatusException {
         return appUserService.createUser(user);
     }
 
-    //Endpoint to login
+    // Endpoint to login
     @PostMapping("/user/login")
     public TokenDto login(@RequestBody() LoginAppUserDto user) throws ResponseStatusException {
         return new TokenDto(appUserService.login(user.getUsername(), user.getPassword()));
     }
 
-    //Endpoint to find the register user
+    // Endpoint to find the register user
     @GetMapping("/user/me")
     @SecurityRequirement(name = "api")
-    public MeDto me(@RequestAttribute("id") Long id){
+    public MeDto me(@RequestAttribute("id") Long id) {
         return meMapper.meDto(appUserService.findOne(id));
     }
-    
+
 }
